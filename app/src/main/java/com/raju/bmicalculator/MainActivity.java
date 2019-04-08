@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
+import com.raju.bmicalculator.model.Person;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -40,23 +40,21 @@ public class MainActivity extends AppCompatActivity {
             double heightInCm = Double.parseDouble(etHeight.getText().toString().trim());
             double heightInM = heightInCm / 100;
             double weight = Double.parseDouble(etWeight.getText().toString().trim());
-            double bmi = weight / (heightInM * heightInM);
-            DecimalFormat decimalFormat = new DecimalFormat("#.0");
+
+            Person person = new Person(heightInM, weight);
 
             // hide keyboard
             InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
 
-            showCategory(decimalFormat.format(bmi));
-            etHeight.setText(" ");
-            etWeight.setText(" ");
+            showCategory(person.calculateBMI());
+
             etHeight.requestFocus();
         }
     }
 
     // show bmi category
-    private void showCategory(String bmiValue) {
-        double bmi = Double.parseDouble(bmiValue);
+    private void showCategory(double bmi) {
         tvBMI.setText(bmi + "");
         if (bmi < 18.5) {
             tvCategory.setText("Underweight");
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             tvCategory.setText("Normal Weight");
             setTextColor(R.color.colorSuccess);
             Toast.makeText(this, "Normal Weight", Toast.LENGTH_LONG).show();
-        } else if (bmi > 25 && bmi < 29.9) {
+        } else if (bmi > 25 && bmi <= 29.9) {
             tvCategory.setText("Overweight");
             setTextColor(R.color.colorWarning);
             Toast.makeText(this, "Overweight", Toast.LENGTH_LONG).show();
