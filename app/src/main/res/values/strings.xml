@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BMI Calculator</string>
+    <string name="height">Height (in cm)</string>
+    <string name="bmi">Body Mass Index</string>
+    <string name="weight">Weight (in kg)</string>
+    <string name="calculate">Calculate</string>
+    <string name="result">BMI Result</string>
+    <string name="bmi_result">18</string>
+    <string name="category">Normal Weight</string>
 </resources>
